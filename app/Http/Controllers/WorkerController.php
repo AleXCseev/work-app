@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Worker;
 use App\Http\Requests\Worker\StoreRequest;
+use App\Http\Requests\Worker\UpdateRequest;
 
 class WorkerController extends Controller
 {
     public function index() 
     {
-        $workers = Worker::all();
-        
+        $workers = Worker::paginate(3);
+
         return view('worker.index', compact('workers'));
     }
 
@@ -28,33 +29,28 @@ class WorkerController extends Controller
     public function store(StoreRequest $request) 
     {
         $data = $request->validated();
-       
         $data['is_married'] = isset($data['is_married']);
-
         Worker::create($data);
-
         return redirect()->route('worker.index');
-
     }
 
-    public function update() 
+    public function edit(Worker $worker) 
     {
-        $worker = Worker::find(3);
-
-        $worker->update([
-            'name' => 'Karl'
-        ]);
-
-        return "Update";
+        return view('worker.edit', compact('worker'));
     }
 
-    public function delete() 
+    public function update(UpdateRequest $request, Worker $worker) 
     {
-        $worker = Worker::find(3);
+        $data = $request->validated();
+        $data['is_married'] = isset($data['is_married']);
+        $worker->update($data);
+        return redirect()->route('worker.show', $worker->id);
+    }
 
+    public function delete(Worker $worker) 
+    {
         $worker->delete();
-
-        return "Delete";
+        return redirect()->route('worker.index');
     }
 
 }
