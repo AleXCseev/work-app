@@ -1,14 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workers</title>
-</head>
-<body>
-    Index page
+@extends('layout.main')
+
+@section('content')
+
+<div>
     <div>
         <a href="{{ route('worker.create') }}">Create</a>
+    </div>
+    <hr>
+    <div>
+        <form action="{{ route('worker.index') }}">
+            <input type="text" name="name" placeholder="name" value="{{ request()->get('name') }}">
+            <input type="text" name="surname" placeholder="surname" value="{{ request()->get('surname') }}">
+            <input type="text" name="email" placeholder="email" value="{{ request()->get('email') }}">
+            <input type="number" name="from" placeholder="from" value="{{ request()->get('from') }}">
+            <input type="number" name="to" placeholder="to" value="{{ request()->get('to') }}">
+            <input type="text" name="description" placeholder="description" value="{{ request()->get('description') }}">
+            <label>
+                <span>Is married</span>
+                <input type="checkbox" name="is_married"
+                 {{ request()->get('is_married') == 'on' ? 'checked' : '' }}
+                >
+            </label>
+            
+            <input type="submit" value="Search">
+            <a href="{{ route('worker.index') }}">Clear</a>
+        </form>
     </div>
     <hr>
     <div class="">
@@ -17,7 +33,10 @@
             {{ $worker->name }} <br>
             {{ $worker->surname }} <br>
             {{ $worker->age }} <br>
-            {{ $worker->email }}
+            {{ $worker->email }} <br>
+            {{ $worker->description }} <br>
+            {{ $worker->is_married }}
+
             <div>
                 <a href="{{ route('worker.show', $worker->id) }}">Show</a>
             </div>
@@ -33,19 +52,13 @@
         <hr>
         @endforeach
         <div class="my-nav">
-            {{ $workers->links() }}
+            {{ $workers->withQueryString()->links() }}
         </div>
     </div>
 
-<style>
-    .my-nav {
-        display: flex;
-        justify-content: center;
-    }
-    .my-nav svg {
-        width: 20px;
-        height: 20px;
-    }
-</style>
-</body>
-</html>
+
+
+</div>
+
+@endsection
+  

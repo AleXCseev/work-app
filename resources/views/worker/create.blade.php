@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create workers</title>
-</head>
-<body>
+@extends('layout.main')
+
+@section('content')
+
+
     <form action="{{ route('worker.store') }}" method="POST" style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px;">
         @csrf
         <input type="text" placeholder="name" name="name" value="{{ old('name') }}">
@@ -35,8 +32,8 @@
         </label>
         <input type="submit" value="Add">
     </form>
-</body>
-</html>
+
+@endsection
 
 
 
