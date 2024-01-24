@@ -7,7 +7,6 @@ use App\Models\Worker;
 use App\Models\Profile;
 use App\Models\Position;
 use App\Models\Project;
-use App\Models\ProjectWorker;
 use App\Models\Department;
 
 class DevCommand extends Command
@@ -33,25 +32,6 @@ class DevCommand extends Command
     {
         // $this->prepareData();
         // $this->prepareManyToMany();
-
-        // $position = Position::create([
-        //     'title' => 'Boss',
-        //     'department_id' => 1,
-        // ]);
-
-        // $worker = Worker::create([
-        //     'name' => 'Big',   
-        //     'surname' => 'Boss',
-        //     'email' => 'bossu@gmail.com',  
-        //     'position_id' => $position->id,
-        //     'age' => 40,
-        //     'description' => 'I am a boss',
-        //     'is_married' => true,
-        // ]);
-
-        $department = Department::find(1);
-
-        dd($department->workers->toArray());
 
     }
 
@@ -137,7 +117,6 @@ class DevCommand extends Command
         $worker5 = Worker::create($workerData5);
 
         $profileData1 = [
-            'worker_id' => $worker1->id,
             'city' => 'New York',
             'skill' => 'PHP',
             'experience' => 5,
@@ -145,7 +124,6 @@ class DevCommand extends Command
         ];
 
         $profileData2 = [
-            'worker_id' => $worker2->id,
             'city' => 'Chicago',
             'skill' => 'Boss',
             'experience' => 10,
@@ -153,7 +131,6 @@ class DevCommand extends Command
         ];
         
         $profileData3 = [
-            'worker_id' => $worker3->id,
             'city' => 'Miami',
             'skill' => 'JS',
             'experience' => 1,
@@ -161,7 +138,6 @@ class DevCommand extends Command
         ];
 
         $profileData4 = [
-            'worker_id' => $worker4->id,
             'city' => 'South Park',
             'skill' => 'Figma',
             'experience' => 3,
@@ -169,20 +145,17 @@ class DevCommand extends Command
         ];
 
         $profileData5 = [
-            'worker_id' => $worker5->id,
             'city' => 'South Park',
             'skill' => 'Figma',
             'experience' => 2,
             'finish_stady_at' => '2022-01-01',
         ];
 
-        $profile1 = Profile::create($profileData1);
-        $profile2 = Profile::create($profileData2);
-        $profile3 = Profile::create($profileData3);
-        $profile4 = Profile::create($profileData4);
-        $profile5 = Profile::create($profileData5);
-
-        // dd($profile->id);
+        $worker1->profile()->create($profileData1);
+        $worker2->profile()->create($profileData2);
+        $worker3->profile()->create($profileData3); 
+        $worker4->profile()->create($profileData4);
+        $worker5->profile()->create($profileData5);
     }
 
     private function prepareManyToMany() 
@@ -200,34 +173,16 @@ class DevCommand extends Command
             'title' => 'Blog',
         ]);
 
-        ProjectWorker::create([
-            'project_id' => $project1->id,
-            'worker_id' => $workerManager->id,
+        $project1->workers()->attach([
+            $workerManager->id,
+            $workerBackend->id,
+            $workerDisigner1->id,
         ]);
 
-        ProjectWorker::create([
-            'project_id' => $project1->id,
-            'worker_id' => $workerBackend->id,
-        ]);
-
-        ProjectWorker::create([
-            'project_id' => $project1->id,
-            'worker_id' => $workerDisigner1->id,
-        ]);
-
-        ProjectWorker::create([
-            'project_id' => $project2->id,
-            'worker_id' => $workerManager->id,
-        ]);
-
-        ProjectWorker::create([
-            'project_id' => $project2->id,
-            'worker_id' => $workerBackend->id,
-        ]);
-
-        ProjectWorker::create([
-            'project_id' => $project2->id,
-            'worker_id' => $workerDisigner2->id,
+        $project2->workers()->attach([
+            $workerManager->id,
+            $workerBackend->id,     
+            $workerDisigner2->id,
         ]);
     }
 }
