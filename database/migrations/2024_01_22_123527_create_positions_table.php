@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('positions', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->unique();
+            $table->foreignId('department_id')->index()->constrained("departments");
             $table->timestamps();
         });
     }

@@ -12,4 +12,14 @@ class Department extends Model
     protected $table = "departments";
 
     protected $guarded = false;
+
+    public function boss()
+    {
+        return $this->hasOneThrough(Worker::class, Position::class, 'department_id', 'position_id', 'id', 'id')->where('position_id', 5);
+    }
+
+    public function workers()
+    {
+        return $this->hasManyThrough(Worker::class, Position::class, 'department_id', 'position_id', 'id', 'id');
+    }
 }

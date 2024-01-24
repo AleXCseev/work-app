@@ -8,6 +8,7 @@ use App\Models\Profile;
 use App\Models\Position;
 use App\Models\Project;
 use App\Models\ProjectWorker;
+use App\Models\Department;
 
 class DevCommand extends Command
 {
@@ -33,28 +34,50 @@ class DevCommand extends Command
         // $this->prepareData();
         // $this->prepareManyToMany();
 
-        $project = Project::find(1);
+        // $position = Position::create([
+        //     'title' => 'Boss',
+        //     'department_id' => 1,
+        // ]);
 
-        $worker = Worker::find(2);
+        // $worker = Worker::create([
+        //     'name' => 'Big',   
+        //     'surname' => 'Boss',
+        //     'email' => 'bossu@gmail.com',  
+        //     'position_id' => $position->id,
+        //     'age' => 40,
+        //     'description' => 'I am a boss',
+        //     'is_married' => true,
+        // ]);
 
-        $worker->projects()->toggle($project->id);
+        $department = Department::find(1);
 
-        dd($worker->projects->toArray());
+        dd($department->workers->toArray());
 
     }
 
     private function prepareData() {
 
+        $department1 = Department::create([
+            'title' => 'IT',
+        ]); 
+
+        $department2 = Department::create([
+            'title' => 'Analytics',
+        ]); 
+
         $position1 = Position::create([
             'title' => 'Developer',
+            'department_id' => $department1->id,
         ]);
 
         $position2 = Position::create([
             'title' => 'Manager',
+            'department_id' => $department1->id,
         ]);
 
         $position3 = Position::create([
             'title' => 'Disigner',
+            'department_id' => $department1->id,
         ]);
 
         $workerData1 = [
