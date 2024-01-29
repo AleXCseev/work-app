@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\SomeJob;
 use Illuminate\Console\Command;
 use App\Models\Worker;
 use App\Models\Position;
@@ -29,12 +30,11 @@ class DevCommand extends Command
      */
     public function handle()
     {
-        // $this->prepareData();
-        // $this->prepareManyToMany();
-
+        SomeJob::dispatch()->onQueue('someQueue');
     }
 
-    private function prepareData() {
+    private function prepareData() 
+    {
 
         $department1 = Department::create([
             'title' => 'IT',
