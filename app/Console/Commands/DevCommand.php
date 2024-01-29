@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\Worker;
-use App\Models\Profile;
 use App\Models\Position;
 use App\Models\Project;
 use App\Models\Department;
