@@ -9,7 +9,7 @@
             {{ $worker->age }} <br>
             {{ $worker->email }}
             <div>
-                <a href="{{ route('worker.index') }}">Back</a>
+                <a href="{{ route('workers.index') }}">Back</a>
             </div>
         </div>
         <hr>

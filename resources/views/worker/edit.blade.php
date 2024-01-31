@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <form action="{{ route('worker.update', $worker->id) }}" method="POST" style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px;">
+    <form action="{{ route('workers.update', $worker->id) }}" method="POST" style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px;">
         @csrf
         @method('PATCH')
         <input type="text" placeholder="name" name="name" value="{{ $worker->name }}">

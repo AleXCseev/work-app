@@ -3,7 +3,7 @@
 @section('content')
 
 
-    <form action="{{ route('worker.store') }}" method="POST" style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px;">
+    <form action="{{ route('workers.store') }}" method="POST" style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px;">
         @csrf
         <input type="text" placeholder="name" name="name" value="{{ old('name') }}">
         @error('name')

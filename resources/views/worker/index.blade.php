@@ -4,11 +4,11 @@
 
 <div>
     <div>
-        <a href="{{ route('worker.create') }}">Create</a>
+        <a href="{{ route('workers.create') }}">Create</a>
     </div>
     <hr>
     <div>
-        <form action="{{ route('worker.index') }}">
+        <form action="{{ route('workers.index') }}">
             <input type="text" name="name" placeholder="name" value="{{ request()->get('name') }}">
             <input type="text" name="surname" placeholder="surname" value="{{ request()->get('surname') }}">
             <input type="text" name="email" placeholder="email" value="{{ request()->get('email') }}">
@@ -23,7 +23,7 @@
             </label>
             
             <input type="submit" value="Search">
-            <a href="{{ route('worker.index') }}">Clear</a>
+            <a href="{{ route('workers.index') }}">Clear</a>
         </form>
     </div>
     <hr>
@@ -38,12 +38,12 @@
             {{ $worker->is_married }}
 
             <div>
-                <a href="{{ route('worker.show', $worker->id) }}">Show</a>
+                <a href="{{ route('workers.show', $worker->id) }}">Show</a>
             </div>
             <div>
-                <a href="{{ route('worker.edit', $worker->id) }}">Edit</a>
+                <a href="{{ route('workers.edit', $worker->id) }}">Edit</a>
             </div>
-            <form action="{{ route('worker.delete', $worker->id) }}" method="POST">
+            <form action="{{ route('workers.destroy', $worker->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <input type="submit" value="Delete">
